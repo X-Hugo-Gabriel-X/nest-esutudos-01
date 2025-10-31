@@ -10,6 +10,7 @@ import {
 	Query,
 	UseInterceptors,
 	UseGuards,
+	Inject,
 } from '@nestjs/common';
 
 import { TasksService } from './tasks.service';
@@ -22,7 +23,12 @@ import { AuthAdminGuard } from 'src/common/guards/admin-guard';
 
 @Controller('tasks')
 export class TasksController {
-	constructor(private readonly taskService: TasksService) {}
+	constructor(
+		private readonly taskService: TasksService,
+
+		@Inject('KEY_TOKEN')
+		private readonly KeyToken: string,
+	) {}
 
 	@Get()
 	@UseInterceptors(LoggerInterceptor)

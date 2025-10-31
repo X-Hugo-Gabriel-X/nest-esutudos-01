@@ -6,13 +6,18 @@ import { APP_FILTER } from '@nestjs/core';
 import { ApiExceptionFiter } from 'src/common/filters/exception-filter';
 
 @Module({
-  imports: [PrismaModule],
-  controllers: [TasksController],
-  providers: [TasksService,
-    {
-      provide: APP_FILTER,
-      useClass: ApiExceptionFiter
-    }
-  ],
+	imports: [PrismaModule],
+	controllers: [TasksController],
+	providers: [
+		TasksService,
+		{
+			provide: APP_FILTER,
+			useClass: ApiExceptionFiter,
+		},
+		{
+			provide: 'KEY_TOKEN',
+			useValue: 'TOKEN_123456789',
+		},
+	],
 })
 export class TasksModule {}
